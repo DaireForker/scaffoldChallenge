@@ -1,0 +1,23 @@
+.product-card{
+	border: solid grey;
+	border-radius: 10px;
+	text-align: center;
+}
+.menu-product-card:hover{
+   
+}
+.product-image{
+	border: solid grey;
+	border-radius: 0px;
+	text-align: center;
+	width: 50%;
+}
+.product-return-Button{
+	border: solid grey;
+	border-radius: 10px;
+	text-align: center;
+}
+.product-return-Button:hover{
+   	opacity: 75%;
+   	cursor: pointer;
+}

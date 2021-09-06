@@ -12049,6 +12049,11 @@ a.text-dark:focus {
   text-align: center;
 }
 
+.menu-product-card:hover {
+  opacity: 70%;
+  cursor: pointer;
+}
+
 .menu-product-image {
   border: solid grey;
   border-radius: 0px;
@@ -12065,5 +12070,29 @@ a.text-dark:focus {
   font-size: 15px;
   text-align: left;
   float: left;
+}
+
+.product-card {
+  border: solid grey;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.product-image {
+  border: solid grey;
+  border-radius: 0px;
+  text-align: center;
+  width: 50%;
+}
+
+.product-return-Button {
+  border: solid grey;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.product-return-Button:hover {
+  opacity: 75%;
+  cursor: pointer;
 }
 
