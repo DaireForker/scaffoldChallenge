@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
+
     	<div class="container menu-top">
             <div class="row mt-5 ">
                 <div class="mt-2 col-md-4 mb-3 text-center">
@@ -18,10 +19,41 @@
                         <h3>Scaffold Challenge</h3>
                 </div>
                 <div class="mt-2 col-md-6 mb-3 text-right">
-                        <!-- <a href="{{ route('login') }}"></a>  This is where I will include the search bar for the products -->  
-                        <input type="text" class="menu-searchBar" id="search" placeholder="search" name="search">
-                </div>
+                <!--  This is where I will include the search bar for the products -->  
+                    <div class="dropdown">
+					 <input type="text" onclick="myFunction()" class="menu-searchBar dropdown dropbtn" id="search" placeholder="search" name="search" >
+					  <div id="myDropdown" class="dropdown-content">
+					  	<!-- foreach to display products that match current search -->
+					    <a href="#home">testProduct</a>
+					    <a href="#about">testProduct</a>
+					    <a href="#contact">testProduct</a>
+					  </div>
+					</div>
+				</div>
             </div>
+            <script>
+			/* When the user clicks on the button, 
+			toggle between hiding and showing the dropdown content */
+			function myFunction() {
+			  document.getElementById("myDropdown").classList.toggle("show");
+			}
+
+			// Close the dropdown if the user clicks outside of it
+			window.onclick = function(event) {
+			  if (!event.target.matches('.dropbtn')) {
+			    var dropdowns = document.getElementsByClassName("dropdown-content");
+			    var i;
+			    for (i = 0; i < dropdowns.length; i++) {
+			      var openDropdown = dropdowns[i];
+			      if (openDropdown.classList.contains('show')) {
+			        openDropdown.classList.remove('show');
+			      }
+			    }
+			  }
+			}
+			</script>
+
+            
         </div>
         <div class="container mt-2">
             <div class="row ">
