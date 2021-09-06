@@ -13,3 +13,5 @@
 
 	Auth::routes();
     Route::get('/', 'ProductsController@show');
+    Route::get('/singleProduct', 'singleProductController@show')->name('singleProduct');
+    
