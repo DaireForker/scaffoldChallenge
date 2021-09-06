@@ -20,7 +20,7 @@
                 </div>
                 <div class="mt-2 col-md-6 mb-3 text-right">
                         <!-- <a href="{{ route('login') }}"></a>  This is where I will include the search bar for the products -->  
-                        <input type="text" class="menu-searchBar"id="search" placeholder="search" name="search">
+                        <input type="text" class="menu-searchBar" id="search" placeholder="search" name="search">
                 </div>
             </div>
         </div>
@@ -75,26 +75,31 @@
                                     <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder">
                                     <br>
                                     <p class="menu-product-name">This is the name of the product</p>
+                                    <br>
                                     <p class="menu-product-price">price</p>
                                 </div>
                                 <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card">
                                     <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"   class="menu-product-image mt-3" alt="placeholder">
                                     <p class="menu-product-name">This is the name of the product</p>
+                                    <br>
                                     <p class="menu-product-price">price</p>
                                 </div>
                                 <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card">
                                     <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"   class="menu-product-image mt-3" alt="placeholder">
                                     <p class="menu-product-name">This is the name of the product</p>
+                                    <br>
                                     <p class="menu-product-price">price</p>
                                 </div>
                                 <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card">
                                     <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"   class="menu-product-image mt-3" alt="placeholder">
                                     <p class="menu-product-name">This is the name of the product</p>
+                                    <br>
                                     <p class="menu-product-price">price</p>
                                 </div>
                                 <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card">
                                     <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"   class="menu-product-image mt-3" alt="placeholder">
                                     <p class="menu-product-name">This is the name of the product</p>
+                                    <br>
                                     <p class="menu-product-price">price</p>
                                 </div>
                             </div>
