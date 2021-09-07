@@ -134,6 +134,12 @@
                                     <p class="menu-product-price">price</p>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Pagination - put count on products within the foreach loop and then assign a display attribute to them in groups of 5.-->
+                                        
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
