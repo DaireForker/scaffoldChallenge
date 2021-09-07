@@ -29,15 +29,9 @@
                                 <!-- foreach to display products that match current search -->
                                 <script>
                                     function ajaxCallBack(smallArr){
-                                        arr = smallArr;
-                                        console.log(arr);
-                                    
-                                        for(var c = 0; c<=arr.length; v++){
-                                         
-
-                                           echo "<a href="'/singleProduct/arr.id'">arr.name</a>"
                                         
-                                        }
+                                        console.log(smallArr);
+                                        console.log("lol got it");
                                     }
                                 </script>
                               </div>
@@ -443,10 +437,21 @@
                             $("#allProducts").hide();
                         }
                     }
+                    //create a delay for the keyup function
+                    function delay(callback, ms) {
+                      var timer = 0;
+                      return function() {
+                        var context = this, args = arguments;
+                        clearTimeout(timer);
+                        timer = setTimeout(function () {
+                          callback.apply(context, args);
+                        }, ms || 0);
+                      };
+                    }
 
                     // ajax Check on search
                      $(document).ready(function(){
-                       $("#search").keyup(function(){
+                       $("#search").keyup(delay(function(){
                             var search = $(this).val().trim();
                             console.log(search);
                                 if(search != ''){
@@ -458,13 +463,11 @@
                                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         success: function(response){
-                                            console.log(response);
-                                         },error:function(){ 
-                                                alert("error!!!!");
-                                            }
+                                            ajaxCallBack(response);
+                                         }
                                     });
                                 }
-                            });
+                            }, 500));
                         });
                        
                      

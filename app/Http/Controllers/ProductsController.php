@@ -66,21 +66,22 @@ class ProductsController extends Controller
 		   	dd($_SESSION["pageClicked"]);
 
 		   return view('welcome');	
-	
 	}
 
 	public function AjaxSearch(Request $request)
 		{
+			//handling of the ajax post that then takes the keydown search variable from the blade and checks it against all products within the database and returns the most similar one.
+
 		   	$stringToCheck = $_POST['search'];
 		   	$allProducts = products::getProducts();
 		   	$arr = array();
 			    foreach ($allProducts as $product) {
-	        		if(strpos($product->name, $stringToCheck) !== false){
+	        		if(str_contains($product->name, $stringToCheck)){
 					    $arr[] = $product;
 					}     
 			    }
 		      	$smallString = $arr[0];
-		      	$response = "<span style='color: red;'></span>";
+		      	$response = "<span style='color: grey; id='".$smallString->id."'>".$smallString->name."</span>";
 		   echo $response;
 		}
 
