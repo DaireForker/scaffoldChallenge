@@ -12109,6 +12109,12 @@ a.text-dark:focus {
   display: block;
 }
 
+.divider {
+  background-color: #696969;
+  width: 100%;
+  height: 2px;
+}
+
 .product-card {
   border: solid grey;
   border-radius: 10px;
