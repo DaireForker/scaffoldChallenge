@@ -53,7 +53,7 @@ class ProductsController extends Controller
 			$_SESSION["tablets"] = $tablets;
 			$_SESSION["appleTablets"] = $appleTablets;
 			$_SESSION["androidTablets"] = $androidTablets;
-
+			
 	        return view('welcome');	
 	        
     }
