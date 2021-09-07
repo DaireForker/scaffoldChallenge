@@ -63,36 +63,30 @@
                     <div class="row ">
                         <!-- The left column will contain radio buttons that send ajax posts to update the information that should be displayed. This is just mock frontend-->
                         <div class="col-md-3 menu-box-left">
-                            <div class="col-md-12 mt-5 menu-title">
-                                <u><h4>Select Category</h4></u>
-                            </div>
+                           
                             <br>
                             <div class="form-check menu-categories">
                                 <!-- create loop to make the id unique -->
-                                <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault1">
-                                <label class="form-check-label" for="flexCheckDefault1">
-                                Test Category checkbox
-                                </label>
-                                <br>
-                                <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault2">
-                                <label class="form-check-label" for="flexCheckDefault2">
-                                Test Category checkbox
-                                </label>
-                                <br>
-                                <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault3">
-                                <label class="form-check-label" for="flexCheckDefault3">
-                                Test Category checkbox
-                                </label>
-                                <br>
-                                <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault4">
-                                <label class="form-check-label" for="flexCheckDefault4">
-                                Test Category checkbox
-                                </label>
-                                <br>
-                                <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault5">
-                                <label class="form-check-label" for="flexCheckDefault5">
-                                Test Category checkbox
-                                </label>
+                                @foreach($allCategories as $category)
+                               
+                                    @if($category->id == 1 || $category->id == 5 )
+                                        <div class="divider mt-2"></div>
+                                        <input class="form-check-input mt-4" type="checkbox" value="" id="flexCheckDefault-{{$category->id}}" onclick="validate()">
+                                        <label class="form-check-label mt-3" for="flexCheckDefault-{{$category->id}}">
+                                            <h3>{{$category->name}}</h3> <p class="mt-0"style="font:6px;"> (show all from this category?)</p>
+                                            <br>
+                                            <u><p style="font:6px;">{{$category->name}} Sub Categories</p></u>
+                                        </label>
+                                        <br>
+                                        @else
+                                        <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault-{{$category->id}}" onclick="validate()">
+                                        <label class="form-check-label" for="flexCheckDefault-{{$category->id}}">
+                                            {{$category->name}}
+                                        </label>
+                                        <br>
+                                    @endif
+
+                                @endforeach
                             </div>
                             <!-- foreach statement that displays all of the categories -->
                             
@@ -100,48 +94,69 @@
                         <!-- On the right hand side of the page the user will be able to filter the view of the products as well as view the products. The products will be displayed according to the category/price/name etc using a foreach that displays a session variable thats updated according to ajax criteria. At the bottom of the right hand column there will be pagination buttons. -->
                         <div class="col-md-9  menu-box-right ml-2">
                             <u><h3 class="mt-5 ">Products</h3></u>
-                            <div class="row">
+                            
                                 <!-- foreach statement that publishes the page with database criteria and placeholder -->
-                                <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card ">
-                                    <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder">
-                                    <br>
-                                    <p class="menu-product-name">This is the name of the product</p>
-                                    <br>
-                                    <p class="menu-product-price">price</p>
+                            @php
+                                $count = 0;
+                            @endphp
+                            <div id="AllProductsDiv" class="col-md-12">
+                                <div class="row">
+                                <!-- script to check if anything is checked in categories -->
+
+                                @foreach($allProducts as $product)
+                                @php
+                                    $count++;
+                                @endphp
+                                    <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$product->id}}">
+                                        <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder">
+                                        <br>
+                                        <p class="menu-product-name">{{$product->name}}</p>
+                                        <br>
+                                        <br>
+                                        <p class="menu-product-price">£{{$product->price}}</p>
+                                    </div>
+                                @endforeach
                                 </div>
-                                <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card">
-                                    <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"   class="menu-product-image mt-3" alt="placeholder">
-                                    <p class="menu-product-name">This is the name of the product</p>
-                                    <br>
-                                    <p class="menu-product-price">price</p>
-                                </div>
-                                <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card">
-                                    <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"   class="menu-product-image mt-3" alt="placeholder">
-                                    <p class="menu-product-name">This is the name of the product</p>
-                                    <br>
-                                    <p class="menu-product-price">price</p>
-                                </div>
-                                <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card">
-                                    <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"   class="menu-product-image mt-3" alt="placeholder">
-                                    <p class="menu-product-name">This is the name of the product</p>
-                                    <br>
-                                    <p class="menu-product-price">price</p>
-                                </div>
-                                <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card">
-                                    <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"   class="menu-product-image mt-3" alt="placeholder">
-                                    <p class="menu-product-name">This is the name of the product</p>
-                                    <br>
-                                    <p class="menu-product-price">price</p>
-                                </div>
+                                @php
+                                    $pagesNeeded = $count / 5;
+                                @endphp
                             </div>
+
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 text-center">
+                                    @for($i=1;$i<=$pagesNeeded;$i++)
+                                        <button id="page-{{$i}}" class="PageButton">{{$i}}</button>
+                                    @endfor
                                     <!-- Pagination - put count on products within the foreach loop and then assign a display attribute to them in groups of 5.-->
-                                        
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- script to recognise if a checkbox has been checked -->
+                <script type="text/javascript">
+                   function validate(){
+                        if (document.getElementById('flexCheckDefault-1').checked) {
+                            alert("phones");
+                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                            alert("apple");
+                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                            alert("huawei");
+                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                            alert("samsung");
+                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                            alert("tablets");
+                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                            alert("appleTablet");
+                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                            alert("androidTablet");
+                        }
+                        else
+                        {
+                            alert("all");
+                        }
+                    }
+                </script>
     </body>
 </html>
