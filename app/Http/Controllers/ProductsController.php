@@ -10,7 +10,7 @@ class ProductsController extends Controller
 {
     protected function show(Request $request){
     		session_start();
-    		$_SESSION["pageClicked"] = 3;
+    		$_SESSION["pageClicked"] = 1;
 			$allProducts = products::getProducts();
 			$allCategories = categories::getCategories();
 			$phones = array();
@@ -68,4 +68,22 @@ class ProductsController extends Controller
 		   return view('welcome');	
 	
 	}
+
+	public function AjaxSearch(Request $request)
+		{
+		   	$stringToCheck = $_POST['search'];
+		   	$allProducts = products::getProducts();
+		   	$arr = array();
+			    foreach ($allProducts as $product) {
+	        		if(strpos($product->name, $stringToCheck) !== false){
+					    $arr[] = $product;
+					}     
+			    }
+		      	$smallString = $arr[0];
+		      	$response = "<span style='color: red;'></span>";
+		   echo $response;
+		}
+
+	
+	
 }

@@ -27,7 +27,19 @@
                               <div id="myDropdown" class="dropdown-content">
                                  @csrf
                                 <!-- foreach to display products that match current search -->
-                                <a href="#home">testProduct</a>
+                                <script>
+                                    function ajaxCallBack(smallArr){
+                                        arr = smallArr;
+                                        console.log(arr);
+                                    
+                                        for(var c = 0; c<=arr.length; v++){
+                                         
+
+                                           echo "<a href="'/singleProduct/arr.id'">arr.name</a>"
+                                        
+                                        }
+                                    }
+                                </script>
                               </div>
                             </div>
                         </div>
@@ -140,8 +152,8 @@
                                 <div class="row">
                              @foreach($_SESSION['applePhones'] as $applePhone)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
-                                            <a href="/singleProduct/{{$phone->id}}">
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$applePhone->id}}" value="{{$applePhone->id}}" >
+                                            <a href="/singleProduct/{{$applePhone->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
                                             <br>
@@ -162,8 +174,8 @@
                                 <div class="row">
                              @foreach($_SESSION['huaweiPhones'] as $huaweiPhone)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
-                                            <a href="/singleProduct/{{$phone->id}}">
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$huaweiPhone->id}}" value="{{$huaweiPhone->id}}" >
+                                            <a href="/singleProduct/{{$huaweiPhone->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
                                             <br>
@@ -183,8 +195,8 @@
                                 <div class="row">
                              @foreach($_SESSION['samsungPhones'] as $samsungPhone)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
-                                            <a href="/singleProduct/{{$phone->id}}">
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$samsungPhone->id}}" value="{{$samsungPhone->id}}" >
+                                            <a href="/singleProduct/{{$samsungPhone->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
                                             <br>
@@ -205,8 +217,8 @@
                                 <div class="row">
                              @foreach($_SESSION['tablets'] as $tablet)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
-                                            <a href="/singleProduct/{{$phone->id}}">
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$tablet->id}}" value="{{$tablet->id}}" >
+                                            <a href="/singleProduct/{{$tablet->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
                                             <br>
@@ -226,9 +238,10 @@
                             <div id="AllProductsDiv" class="col-md-12">
                                 <div class="row">
                              @foreach($_SESSION['appleTablets'] as $appleTablet)
+
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
-                                            <a href="/singleProduct/{{$phone->id}}">
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$appleTablet->id}}" value="{{$appleTablet->id}}" >
+                                            <a href="/singleProduct/{{$appleTablet->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
                                             <br>
@@ -249,8 +262,8 @@
                                 <div class="row">
                              @foreach($_SESSION['androidTablets'] as $androidTablet)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
-                                            <a href="/singleProduct/{{$phone->id}}">
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$androidTablet->id}}" value="{{$androidTablet->id}}" >
+                                            <a href="/singleProduct/{{$androidTablet->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
                                             <br>
@@ -366,10 +379,13 @@
                     function seeSubsPhone(){
                         $(".phoneCats").toggle();
                         $("#phones").toggle();
+                        $("#allProducts").hide();
+                        
                     }
                     function seeSubsTablet(){
                         $(".tabCats").toggle();
                         $("#tablets").toggle();
+                        $("#allProducts").hide();
                     }
 
                     function validate(){
@@ -385,7 +401,6 @@
                             $("#allProducts").hide();
 
                         }
-
                          if(document.getElementById('flexCheckDefault-3').checked) {
                             $("#applePhones").hide();
                             $("#samsungPhones").hide();
@@ -396,7 +411,6 @@
                             $("#androidTablets").hide();
                             $("#allProducts").hide();
                         }
-
                         if(document.getElementById('flexCheckDefault-4').checked) {
                             $("#applePhones").hide();
                             $("#samsungPhones").show();
@@ -407,7 +421,6 @@
                             $("#androidTablets").hide();
                             $("#allProducts").hide();
                         }
-    
                         if(document.getElementById('flexCheckDefault-6').checked) {
                             $("#applePhones").hide();
                             $("#samsungPhones").hide();
@@ -428,9 +441,33 @@
                             $("#appleTablets").hide();
                             $("#androidTablets").show();
                             $("#allProducts").hide();
-    
                         }
                     }
+
+                    // ajax Check on search
+                     $(document).ready(function(){
+                       $("#search").keyup(function(){
+                            var search = $(this).val().trim();
+                            console.log(search);
+                                if(search != ''){
+                                    $.ajax({
+                                        url: "{{ url('/AjaxSearch') }}",
+                                        type: 'POST',
+                                        data: {search: search},
+                                        headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        },
+                                        success: function(response){
+                                            console.log(response);
+                                         },error:function(){ 
+                                                alert("error!!!!");
+                                            }
+                                    });
+                                }
+                            });
+                        });
+                       
+                     
                 </script>
                
     </body>
