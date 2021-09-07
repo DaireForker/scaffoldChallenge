@@ -1,94 +1,28 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>Laravel Challenge</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="css/app.css">
-
-    </head>
-    <body>
-        <script src="js/app.js" charset="utf-8"></script>
-        <div class="container menu-top">
-            <div class="row mt-5 ">
-                <div class="mt-2 col-md-4 mb-3 text-center">
-                        <!-- <a href="{{ route('login') }}"></a>  This is where I will include the search bar for the products -->  
-                        <h3>Scaffold Challenge</h3>
-                </div>
-                <div class="mt-2 col-md-6 mb-3 text-right">
-                        <!--  This is where I will include the search bar for the products -->  
-                            <div class="dropdown">
-                             <input type="text" onclick="myFunction()" class="menu-searchBar dropdown dropbtn" id="search" placeholder="search" name="search" autocomplete="off">
-                              <div id="myDropdown" class="dropdown-content">
-                                 @csrf
-                                <!-- foreach to display products that match current search -->
-                                <!-- <a href="" id="matchSearch"></a> -->
-                                <div id="matchDrop"></div>
-                                <script>
-                                    function ajaxCallBack(smallArr){
-                                        console.log(smallArr);
-                                        $("#matchDrop").html(smallArr);
-                                    }
-                                </script>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                    /* When the user clicks on the button, 
-                    toggle between hiding and showing the dropdown content */
-                    function myFunction() {
-                      document.getElementById("myDropdown").classList.toggle("show");
-                    }
-
-                    // Close the dropdown if the user clicks outside of it
-                    window.onclick = function(event) {
-                      if (!event.target.matches('.dropbtn')) {
-                        var dropdowns = document.getElementsByClassName("dropdown-content");
-                        var i;
-                        for (i = 0; i < dropdowns.length; i++) {
-                          var openDropdown = dropdowns[i];
-                          if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                          }
-                        }
-                      }
-                    }
-                    </script>
-                </div>
-            </div>
-        </div>
-        <div class="menu-top-seperator mt-4">
-        </div>
+@extends('layouts.banner')
+    @section('content')
             <!-- Below is the user interface to interact with the products, on the left of the screen the user will be able to add/remove filters to the page. -->
             
                 <div class="container mt-2">
                     <div class="row ">
                         <!-- The left column will contain radio buttons that send ajax posts to update the information that should be displayed. This is just mock frontend-->
-                        <div class="col-md-3 menu-box-left">
-                           
+                        <div class="col-md-3 col-sm-12 col-xs-12 menu-box-left">
                             <br>
-                            <div class="form-check menu-categories">
+                            <div class="form-check ">
                                 <!-- create loop to make the id unique -->
                                 @foreach($_SESSION["allCategories"] as $category)
-                               
+
                                     @if($category->id == 1)
-                                        <div class="divider mt-2"></div>
-                                        <label class="form-check-label cat-Buttons mt-3" onclick="seeSubsPhone()"for="flexCheckDefault-{{$category->id}}">
-                                            <h3>{{$category->name}}</h3> <p class="mt-0"style="font:6px;"> (show all from this category?)</p>
+
+                                        <label class="form-check-label cat-Buttons mt-3 w-100" onclick="seeSubsPhone()"for="flexCheckDefault-{{$category->id}}">
+                                            <h4 class="title-Text">{{$category->name}}</h4> <p class="mt-0"style="font:4px;"> (show all from this category?)</p>
                                             <br>
                                             
                                         </label>
                                         <br>
                                     @elseif($category->id == 5 )
-                                        <div class="divider mt-2"></div>
-                                        <label class="form-check-label cat-Buttons mt-3" onclick="seeSubsTablet()"for="flexCheckDefault-{{$category->id}}">
-                                            <h3>{{$category->name}}</h3> <p class="mt-0"style="font:6px;"> (show all from this category?)</p>
+                                        
+                                        <label class="form-check-label cat-Buttons mt-3 w-100" onclick="seeSubsTablet()"for="flexCheckDefault-{{$category->id}}">
+                                            <h4 class="title-Text">{{$category->name}}</h4> <p class="mt-0 ml-1"style="font:4px;"> (show all from this category?)</p>
                                             <br>
                                             
                                         </label>
@@ -117,16 +51,16 @@
                             
                         </div>
                         <!-- On the right hand side of the page the user will be able to filter the view of the products as well as view the products. The products will be displayed according to the category/price/name etc using a foreach that displays a session variable thats updated according to ajax criteria. At the bottom of the right hand column there will be pagination buttons. -->
-                        <div class="col-md-9  menu-box-right ml-2" >
-                        <u><h3 class="mt-5 ">All Products</h3></u>
+                        <div class="col-md-9 col-sm-12  menu-box-right " >
+                        <u><h3 class="mt-5 text-center">Products</h3></u>
 
                         <!-- Display all phones -->
-                        <div id="phones" name="phones" class="phones ml-2">
+                        <div id="phones" name="phones" class="phones col-sm-12 ml-2">
                             <div id="AllProductsDiv" class="col-md-12">
                                 <div class="row">
                              @foreach($_SESSION['phones'] as $phone)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
+                                        <div class="col-md-3 col-sm-12 ml-4 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
                                             <a href="/singleProduct/{{$phone->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
@@ -147,7 +81,7 @@
                                 <div class="row">
                              @foreach($_SESSION['applePhones'] as $applePhone)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$applePhone->id}}" value="{{$applePhone->id}}" >
+                                        <div class="col-md-3  ml-4 mt-4 mb-2 menu-product-card " id="card-{{$applePhone->id}}" value="{{$applePhone->id}}" >
                                             <a href="/singleProduct/{{$applePhone->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
@@ -169,7 +103,7 @@
                                 <div class="row">
                              @foreach($_SESSION['huaweiPhones'] as $huaweiPhone)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$huaweiPhone->id}}" value="{{$huaweiPhone->id}}" >
+                                        <div class="col-md-3 ml-4 mt-4 mb-2 menu-product-card " id="card-{{$huaweiPhone->id}}" value="{{$huaweiPhone->id}}" >
                                             <a href="/singleProduct/{{$huaweiPhone->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
@@ -190,7 +124,7 @@
                                 <div class="row">
                              @foreach($_SESSION['samsungPhones'] as $samsungPhone)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$samsungPhone->id}}" value="{{$samsungPhone->id}}" >
+                                        <div class="col-md-3 ml-4 mt-4 mb-2 menu-product-card " id="card-{{$samsungPhone->id}}" value="{{$samsungPhone->id}}" >
                                             <a href="/singleProduct/{{$samsungPhone->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
@@ -212,7 +146,7 @@
                                 <div class="row">
                                 @foreach($_SESSION['tablets'] as $tablet)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$tablet->id}}" value="{{$tablet->id}}" >
+                                        <div class="col-md-3 ml-4 mt-4 mb-2 menu-product-card " id="card-{{$tablet->id}}" value="{{$tablet->id}}" >
                                             <a href="/singleProduct/{{$tablet->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
@@ -234,7 +168,7 @@
                                 <div class="row">
                              @foreach($_SESSION['appleTablets'] as $appleTablet)
 
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$appleTablet->id}}" value="{{$appleTablet->id}}" >
+                                        <div class="col-md-3 ml-4 mt-4 mb-2 menu-product-card " id="card-{{$appleTablet->id}}" value="{{$appleTablet->id}}" >
                                             <a href="/singleProduct/{{$appleTablet->id}}">
                                                 <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                                 <br>
@@ -255,7 +189,7 @@
                                 <div class="row">
                              @foreach($_SESSION['androidTablets'] as $androidTablet)
                                        
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$androidTablet->id}}" value="{{$androidTablet->id}}" >
+                                        <div class="col-md-3 ml-4 mt-4 mb-2 menu-product-card " id="card-{{$androidTablet->id}}" value="{{$androidTablet->id}}" >
                                             <a href="/singleProduct/{{$androidTablet->id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
@@ -297,7 +231,7 @@
                                            $id = $_SESSION['allProducts'][$j]->id;
                                         @endphp
                                         
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$_SESSION['allProducts'][$j]->id}}" value="{{$_SESSION['allProducts'][$j]->id}}" >
+                                        <div class="col-md-3 ml-4 mt-4 mb-2 menu-product-card " id="card-{{$_SESSION['allProducts'][$j]->id}}" value="{{$_SESSION['allProducts'][$j]->id}}" >
                                             <a href="/singleProduct/{{$id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
@@ -317,7 +251,7 @@
                                           
                                         @endphp
                                         
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$_SESSION['allProducts'][$j]->id}}" value="{{$_SESSION['allProducts'][$j]->id}}" >
+                                        <div class="col-md-3 ml-4 mt-4 mb-2 menu-product-card " id="card-{{$_SESSION['allProducts'][$j]->id}}" value="{{$_SESSION['allProducts'][$j]->id}}" >
                                             <a href="/singleProduct/{{$id}}">
                                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             
@@ -432,44 +366,7 @@
                             $("#allProducts").hide();
                         }
                     }
-                    //create a delay for the keyup function
-                    function delay(callback, ms) {
-                      var timer = 0;
-                      return function() {
-                        var context = this, args = arguments;
-                        clearTimeout(timer);
-                        timer = setTimeout(function () {
-                          callback.apply(context, args);
-                        }, ms || 0);
-                      };
-                    }
-
-                    // ajax Check on search
-                     $(document).ready(function(){
-                       $("#search").keyup(delay(function(){
-                            var search = $(this).val().trim();
-                            console.log(search);
-                                if(search != ''){
-                                    $.ajax({
-                                        url: "{{ url('/AjaxSearch') }}",
-                                        type: 'POST',
-                                        data: {search: search},
-                                        headers: {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                        },
-                                        success: function(response){
-                                            ajaxCallBack(response);
-                                         }
-                                    });
-                                }
-                            }, 500));
-                        });
-                     //converter for string to html
-                     var stringToHTML = function (str) {
-                        var parser = new DOMParser();
-                        var doc = parser.parseFromString(str, 'text/html');
-                        return doc.body;
-                    };
+                   
                 </script> 
-    </body>
-</html>
+                @include('search')
+ @endsection
