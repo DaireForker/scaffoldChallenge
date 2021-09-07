@@ -3,12 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Laravel Challenge</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="css/app.css">
+
     </head>
     <body>
         <script src="js/app.js" charset="utf-8"></script>
@@ -23,6 +25,7 @@
                             <div class="dropdown">
                              <input type="text" onclick="myFunction()" class="menu-searchBar dropdown dropbtn" id="search" placeholder="search" name="search" >
                               <div id="myDropdown" class="dropdown-content">
+                                 @csrf
                                 <!-- foreach to display products that match current search -->
                                 <a href="#home">testProduct</a>
                                 <a href="#about">testProduct</a>
@@ -67,7 +70,7 @@
                             <br>
                             <div class="form-check menu-categories">
                                 <!-- create loop to make the id unique -->
-                                @foreach($allCategories as $category)
+                                @foreach($_SESSION["allCategories"] as $category)
                                
                                     @if($category->id == 1 || $category->id == 5 )
                                         <div class="divider mt-2"></div>
@@ -103,38 +106,50 @@
                                 <div class="row">
                                 <!-- script to check if anything is checked in categories -->
 
-                                <!-- I need to create a "page clicked" variable that allows me to use that as the starting point of a loop e.g page 2 starts at 6.  -->
+                                <!-- I counted the products to find out how many buttons i needed and then used that to then state where the starting point of the forloop would be.
+                                Now i need to create a script that passes the buttons name - this could have to be an ajax post.  -->
                                 @php
-                                    $count = count($allProducts);
+                                    $count = count($_SESSION["allProducts"]);
                                     $pagesNeeded = $count / 5;
-                                    $pageClicked = 3;
+                                    $pageClicked = $_SESSION["pageClicked"];
                                     $startingProduct = ($pageClicked - 1) *5;
                                     $pageProducts = $pageClicked * 5;
+                                   
                                 @endphp
+
                                 @if($pageClicked == 1)
                                     @for($j = 0; $j <$pageProducts; $j++)
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$allProducts[$j]->id}}">
-                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder">
+                                        @php
+                                           $id = $_SESSION['allProducts'][$j]->id;
+                                        @endphp
+                                        
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$_SESSION['allProducts'][$j]->id}}" value="{{$_SESSION['allProducts'][$j]->id}}" >
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            <a href="/singleProduct/{{$id}}">
                                             <br>
-                                            <p class="menu-product-name">{{$allProducts[$j]->name}}</p>
+                                            <p class="menu-product-name">{{$_SESSION["allProducts"][$j]->name}}</p>
                                             <br>
                                             <br>
-                                            <p class="menu-product-price">£{{$allProducts[$j]->price}}</p>
+                                            <p class="menu-product-price">£{{$_SESSION["allProducts"][$j]->price}}</p>
                                         </div>
                                     
                                     @endfor
                                 @else
                                     @for($j = $startingProduct; $j <$pageProducts; $j++)
-                                    
-                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$allProducts[$j]->id}}">
-                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder">
+                                        @php
+                                           $id = $_SESSION['allProducts'][$j]->id ;
+                                          
+                                        @endphp
+                                        
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$_SESSION['allProducts'][$j]->id}}" value="{{$_SESSION['allProducts'][$j]->id}}" >
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            <a href="/singleProduct/{{$id}}">
                                             <br>
-                                            <p class="menu-product-name">{{$allProducts[$j]->name}}</p>
+                                            <p class="menu-product-name">{{$_SESSION["allProducts"][$j]->name}}</p>
                                             <br>
                                             <br>
-                                            <p class="menu-product-price">£{{$allProducts[$j]->price}}</p>
+                                            <p class="menu-product-price">£{{$_SESSION["allProducts"][$j]->price}}</p>
                                         </div>
-                                    
                                     @endfor
                                 @endif
                                 </div>
@@ -143,18 +158,21 @@
 
                             <div class="row">
                                 <div class="col-md-12 text-center">
+                                     @csrf
                                     @for($i=1;$i<=$pagesNeeded;$i++)
-                                        <button id="page-{{$i}}" class="PageButton">{{$i}}</button>
+                                        <button id="page-{{$i}}" value="{{$i}}"class="PageButton">{{$i}}</button>
                                     @endfor
-                                    <!-- Pagination - put count on products within the foreach loop and then assign a display attribute to them in groups of 5.-->
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- function to handle if a product has been selected -->
                 <!-- script to recognise if a checkbox has been checked -->
                 <script type="text/javascript">
+
+                    
+
                    function validate(){
                         if (document.getElementById('flexCheckDefault-1').checked) {
                             alert("phones");
@@ -177,5 +195,6 @@
                         }
                     }
                 </script>
+               
     </body>
 </html>

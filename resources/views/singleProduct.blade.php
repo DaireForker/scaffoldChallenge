@@ -8,10 +8,9 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="/css/app.css">
     </head>
     <body>
-
     	<div class="container menu-top">
             <div class="row mt-5 ">
                 <div class="mt-2 col-md-4 mb-3 text-center">
@@ -52,8 +51,6 @@
 			  }
 			}
 			</script>
-
-            
         </div>
         <div class="container mt-2">
             <div class="row ">
@@ -76,13 +73,13 @@
                         <div class="col-md-10 ml-5 mt-4 mb-2 product-card ">
                             <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="product-image mt-3" alt="placeholder">
                             <br>
-                            <p class="menu-product-name">This is the name of the product</p>
+                            <p class="menu-product-name">{{$productNeeded->name}}</p>
                             <br>
                             <br>
-                            <p class="menu-product-price">Brand is: [insert brand here]</p>
+                            <p class="menu-product-price">Brand is: {{$brandNeeded}}</p>
                             <br>
                             <br>
-                            <p class="menu-product-price">price</p>
+                            <p class="menu-product-price">{{$productNeeded->price}}</p>
                         </div>
                     </div>
                 </div>

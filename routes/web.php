@@ -13,5 +13,7 @@
 
 	Auth::routes();
     Route::get('/', 'ProductsController@show');
-    Route::get('/singleProduct', 'singleProductController@show')->name('singleProduct');
+    // Route::post('/singleProduct', 'singleProductController@show')->name('singleProduct');
+    Route::get('/singleProduct/{id}', 'singleProductController@show');
+    Route::post('/AjaxPageUpdate', 'ProductsController@AjaxPageUpdate');
     
