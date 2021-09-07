@@ -364,6 +364,7 @@
                         });
                     
                     });
+                    //toggle jq of the categories
                     function seeSubsPhone(){
                         $(".phoneCats").toggle();
                         $("#phones").toggle();
@@ -469,9 +470,6 @@
                         var doc = parser.parseFromString(str, 'text/html');
                         return doc.body;
                     };
-                       
-                     
-                </script>
-               
+                </script> 
     </body>
 </html>

@@ -19,14 +19,7 @@ class singleProductController extends Controller
 					$productNeeded = $products;
            		}
            	}
-           	// $allCategories = Session::get('allCategories');
-           	// $phones = Session::get('phones');
-           	// $applePhones = Session::get('applePhones');
-           	// $huaweiPhones = Session::get('huaweiPhones');
-           	// $samsungPhones = Session::get('samsungPhones');
-           	// $tablets = Session::get('tablets');
-           	// $appleTablets = Session::get('appleTablets');
-           	// $androidPhones = Session::get('androidPhones');
+
            	$brandNeeded;
            
            	foreach($allCategories as $category)
@@ -36,8 +29,6 @@ class singleProductController extends Controller
            			
            		}
            	}
-           
-     
 	       	return view('singleProduct', compact('productNeeded','brandNeeded'));
     }
 }
