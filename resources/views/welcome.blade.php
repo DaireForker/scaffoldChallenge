@@ -23,15 +23,16 @@
                 <div class="mt-2 col-md-6 mb-3 text-right">
                         <!--  This is where I will include the search bar for the products -->  
                             <div class="dropdown">
-                             <input type="text" onclick="myFunction()" class="menu-searchBar dropdown dropbtn" id="search" placeholder="search" name="search" >
+                             <input type="text" onclick="myFunction()" class="menu-searchBar dropdown dropbtn" id="search" placeholder="search" name="search" autocomplete="off">
                               <div id="myDropdown" class="dropdown-content">
                                  @csrf
                                 <!-- foreach to display products that match current search -->
+                                <!-- <a href="" id="matchSearch"></a> -->
+                                <div id="matchDrop"></div>
                                 <script>
                                     function ajaxCallBack(smallArr){
-                                        
                                         console.log(smallArr);
-                                        console.log("lol got it");
+                                        $("#matchDrop").html(smallArr);
                                     }
                                 </script>
                               </div>
@@ -469,6 +470,12 @@
                                 }
                             }, 500));
                         });
+                     //converter for string to html
+                     var stringToHTML = function (str) {
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(str, 'text/html');
+                        return doc.body;
+                    };
                        
                      
                 </script>

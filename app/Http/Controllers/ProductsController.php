@@ -76,12 +76,13 @@ class ProductsController extends Controller
 		   	$allProducts = products::getProducts();
 		   	$arr = array();
 			    foreach ($allProducts as $product) {
-	        		if(str_contains($product->name, $stringToCheck)){
+			    	// had to figure a way out how to deal with the caps issue
+	        		if(str_contains(strtolower($product->name), strtolower($stringToCheck))){
 					    $arr[] = $product;
 					}     
 			    }
 		      	$smallString = $arr[0];
-		      	$response = "<span style='color: grey; id='".$smallString->id."'>".$smallString->name."</span>";
+		      	$response = "<a href='/singleProduct/".$smallString->id."' style='color: grey; id='".$smallString->id."'>".$smallString->name."</a>";
 		   echo $response;
 		}
 
