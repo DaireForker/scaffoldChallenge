@@ -19,8 +19,39 @@
                         <h3>Scaffold Challenge</h3>
                 </div>
                 <div class="mt-2 col-md-6 mb-3 text-right">
-                        <!-- <a href="{{ route('login') }}"></a>  This is where I will include the search bar for the products -->  
-                        <input type="text" class="menu-searchBar" id="search" placeholder="search" name="search">
+                        <!--  This is where I will include the search bar for the products -->  
+                            <div class="dropdown">
+                             <input type="text" onclick="myFunction()" class="menu-searchBar dropdown dropbtn" id="search" placeholder="search" name="search" >
+                              <div id="myDropdown" class="dropdown-content">
+                                <!-- foreach to display products that match current search -->
+                                <a href="#home">testProduct</a>
+                                <a href="#about">testProduct</a>
+                                <a href="#contact">testProduct</a>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                    /* When the user clicks on the button, 
+                    toggle between hiding and showing the dropdown content */
+                    function myFunction() {
+                      document.getElementById("myDropdown").classList.toggle("show");
+                    }
+
+                    // Close the dropdown if the user clicks outside of it
+                    window.onclick = function(event) {
+                      if (!event.target.matches('.dropbtn')) {
+                        var dropdowns = document.getElementsByClassName("dropdown-content");
+                        var i;
+                        for (i = 0; i < dropdowns.length; i++) {
+                          var openDropdown = dropdowns[i];
+                          if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                          }
+                        }
+                      }
+                    }
+                    </script>
                 </div>
             </div>
         </div>
@@ -101,6 +132,12 @@
                                     <p class="menu-product-name">This is the name of the product</p>
                                     <br>
                                     <p class="menu-product-price">price</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Pagination - put count on products within the foreach loop and then assign a display attribute to them in groups of 5.-->
+                                        
                                 </div>
                             </div>
                         </div>
