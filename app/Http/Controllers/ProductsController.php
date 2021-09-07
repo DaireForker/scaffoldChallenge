@@ -10,7 +10,7 @@ class ProductsController extends Controller
 {
     protected function show(Request $request){
     		session_start();
-    		$_SESSION["pageClicked"] = 3;
+    		$_SESSION["pageClicked"] = 1;
 			$allProducts = products::getProducts();
 			$allCategories = categories::getCategories();
 			$phones = array();
@@ -19,29 +19,29 @@ class ProductsController extends Controller
 			$samsungPhones = array();
 			$tablets = array();
 			$appleTablets = array();
-			$androidPhones = array();
+			$androidTablets = array();
 			foreach ($allProducts as $product){
 				if($product->category_id == 1 || $product->category_id == 2 ||$product->category_id == 3 || $product->category_id == 4 ){
 
 					$phones[] = $product;
 				}
-				elseif($product->category_id == 2 ){
+				if($product->category_id == 2 ){
 					$applePhones[] = $product;
 				}
-				elseif($product->category_id == 3 ){
+				if($product->category_id == 3 ){
 					$huaweiPhones[] = $product;
 				}
-				elseif($product->category_id == 4 ){
-					$huaweiPhones[] = $product;
+				if($product->category_id == 4 ){
+					$samsungPhones[] = $product;
 				}
-				elseif($product->category_id == 5 || $product->category_id == 6 ||$product->category_id == 7){
+				if($product->category_id == 5 || $product->category_id == 6 ||$product->category_id == 7){
 					$tablets[] = $product;
 				}
-				elseif($product->category_id == 6 ){
+				if($product->category_id == 6 ){
 					$appleTablets[] = $product;
 				}
-				elseif($product->category_id == 7 ){
-					$androidPhones[] = $product;
+				if($product->category_id == 7 ){
+					$androidTablets[] = $product;
 				}
 			}
 			$_SESSION["allProducts"] = $allProducts;
@@ -52,7 +52,8 @@ class ProductsController extends Controller
 			$_SESSION["samsungPhones"] = $samsungPhones;
 			$_SESSION["tablets"] = $tablets;
 			$_SESSION["appleTablets"] = $appleTablets;
-			$_SESSION["androidPhones"] = $androidPhones;
+			$_SESSION["androidTablets"] = $androidTablets;
+
 	        return view('welcome');	
 	        
     }
@@ -65,6 +66,26 @@ class ProductsController extends Controller
 		   	dd($_SESSION["pageClicked"]);
 
 		   return view('welcome');	
-	
 	}
+
+	public function AjaxSearch(Request $request)
+		{
+			//handling of the ajax post that then takes the keydown search variable from the blade and checks it against all products within the database and returns the most similar one.
+
+		   	$stringToCheck = $_POST['search'];
+		   	$allProducts = products::getProducts();
+		   	$arr = array();
+			    foreach ($allProducts as $product) {
+			    	// had to figure a way out how to deal with the caps issue
+	        		if(str_contains(strtolower($product->name), strtolower($stringToCheck))){
+					    $arr[] = $product;
+					}     
+			    }
+		      	$smallString = $arr[0];
+		      	$response = "<a href='/singleProduct/".$smallString->id."' style='color: grey; id='".$smallString->id."'>".$smallString->name."</a>";
+		   echo $response;
+		}
+
+	
+	
 }

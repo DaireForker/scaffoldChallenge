@@ -23,13 +23,18 @@
                 <div class="mt-2 col-md-6 mb-3 text-right">
                         <!--  This is where I will include the search bar for the products -->  
                             <div class="dropdown">
-                             <input type="text" onclick="myFunction()" class="menu-searchBar dropdown dropbtn" id="search" placeholder="search" name="search" >
+                             <input type="text" onclick="myFunction()" class="menu-searchBar dropdown dropbtn" id="search" placeholder="search" name="search" autocomplete="off">
                               <div id="myDropdown" class="dropdown-content">
                                  @csrf
                                 <!-- foreach to display products that match current search -->
-                                <a href="#home">testProduct</a>
-                                <a href="#about">testProduct</a>
-                                <a href="#contact">testProduct</a>
+                                <!-- <a href="" id="matchSearch"></a> -->
+                                <div id="matchDrop"></div>
+                                <script>
+                                    function ajaxCallBack(smallArr){
+                                        console.log(smallArr);
+                                        $("#matchDrop").html(smallArr);
+                                    }
+                                </script>
                               </div>
                             </div>
                         </div>
@@ -72,21 +77,38 @@
                                 <!-- create loop to make the id unique -->
                                 @foreach($_SESSION["allCategories"] as $category)
                                
-                                    @if($category->id == 1 || $category->id == 5 )
+                                    @if($category->id == 1)
                                         <div class="divider mt-2"></div>
-                                        <input class="form-check-input mt-4" type="checkbox" value="" id="flexCheckDefault-{{$category->id}}" onclick="validate()">
-                                        <label class="form-check-label mt-3" for="flexCheckDefault-{{$category->id}}">
+                                        <label class="form-check-label cat-Buttons mt-3" onclick="seeSubsPhone()"for="flexCheckDefault-{{$category->id}}">
                                             <h3>{{$category->name}}</h3> <p class="mt-0"style="font:6px;"> (show all from this category?)</p>
                                             <br>
-                                            <u><p style="font:6px;">{{$category->name}} Sub Categories</p></u>
+                                            
                                         </label>
                                         <br>
-                                        @else
-                                        <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault-{{$category->id}}" onclick="validate()">
-                                        <label class="form-check-label" for="flexCheckDefault-{{$category->id}}">
-                                            {{$category->name}}
+                                    @elseif($category->id == 5 )
+                                        <div class="divider mt-2"></div>
+                                        <label class="form-check-label cat-Buttons mt-3" onclick="seeSubsTablet()"for="flexCheckDefault-{{$category->id}}">
+                                            <h3>{{$category->name}}</h3> <p class="mt-0"style="font:6px;"> (show all from this category?)</p>
+                                            <br>
+                                            
                                         </label>
                                         <br>
+                                    @elseif($category->id == 2 || $category->id == 3|| $category->id == 4)
+                                        <div id="phoneCats" class=" phoneCats col-md-12">
+                                            <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault-{{$category->id}}" onclick="validate()">
+                                            <label class="form-check-label" for="flexCheckDefault-{{$category->id}}">
+                                                {{$category->name}}
+                                            </label>
+                                            <br>
+                                        </div>
+                                    @elseif($category->id == 6 || $category->id == 7)
+                                        <div id="tabCats" class=" tabCats col-md-12">
+                                            <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault-{{$category->id}}" onclick="validate()">
+                                            <label class="form-check-label" for="flexCheckDefault-{{$category->id}}">
+                                                {{$category->name}}
+                                            </label>
+                                            <br>
+                                        </div>
                                     @endif
 
                                 @endforeach
@@ -95,14 +117,173 @@
                             
                         </div>
                         <!-- On the right hand side of the page the user will be able to filter the view of the products as well as view the products. The products will be displayed according to the category/price/name etc using a foreach that displays a session variable thats updated according to ajax criteria. At the bottom of the right hand column there will be pagination buttons. -->
-                        <div class="col-md-9  menu-box-right ml-2">
-                            <u><h3 class="mt-5 ">Products</h3></u>
+                        <div class="col-md-9  menu-box-right ml-2" >
+                        <u><h3 class="mt-5 ">All Products</h3></u>
+
+                        <!-- Display all phones -->
+                        <div id="phones" name="phones" class="phones ml-2">
+                            <div id="AllProductsDiv" class="col-md-12">
+                                <div class="row">
+                             @foreach($_SESSION['phones'] as $phone)
+                                       
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$phone->id}}" value="{{$phone->id}}" >
+                                            <a href="/singleProduct/{{$phone->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
+                                            <br>
+                                            <p class="menu-product-name">{{$phone->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$phone->price}}</p>
+                                            </a>
+                                        </div>
+                                    
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Display all apple phones -->
+                            <div class="col-md-12" id="applePhones" name="applePhones">
+                                <div class="row">
+                             @foreach($_SESSION['applePhones'] as $applePhone)
+                                       
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$applePhone->id}}" value="{{$applePhone->id}}" >
+                                            <a href="/singleProduct/{{$applePhone->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
+                                            <br>
+                                            <p class="menu-product-name">{{$applePhone->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$applePhone->price}}</p>
+                                            </a>
+                                        </div>
+                                    
+                                    @endforeach
+                                </div>
+                            </div>
+                  
+                        <!-- Display all huaweiPhones -->
+                        
+                            <div class="col-md-12" id="huaweiPhones" name="huaweiPhones">
+                                <div class="row">
+                             @foreach($_SESSION['huaweiPhones'] as $huaweiPhone)
+                                       
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$huaweiPhone->id}}" value="{{$huaweiPhone->id}}" >
+                                            <a href="/singleProduct/{{$huaweiPhone->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
+                                            <br>
+                                            <p class="menu-product-name">{{$huaweiPhone->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$huaweiPhone->price}}</p>
+                                            </a>
+                                        </div>
+                                    
+                                    @endforeach
+                                </div>
+                            </div>
+                            <!-- Display all samsungPhones -->
+                        <div id="samsungPhones" name="samsungPhones" class="samsungPhones ml-2">
+                            <div id="AllProductsDiv" class="col-md-12">
+                                <div class="row">
+                             @foreach($_SESSION['samsungPhones'] as $samsungPhone)
+                                       
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$samsungPhone->id}}" value="{{$samsungPhone->id}}" >
+                                            <a href="/singleProduct/{{$samsungPhone->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
+                                            <br>
+                                            <p class="menu-product-name">{{$samsungPhone->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$samsungPhone->price}}</p>
+                                            </a>
+                                        </div>
+                                    
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Display all tablets -->
+                        <div id="tablets" name="tablets" class="tablets  ml-2">
+                            <div id="AllProductsDiv" class="col-md-12">
+                                <div class="row">
+                             @foreach($_SESSION['tablets'] as $tablet)
+                                       
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$tablet->id}}" value="{{$tablet->id}}" >
+                                            <a href="/singleProduct/{{$tablet->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
+                                            <br>
+                                            <p class="menu-product-name">{{$tablet->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$tablet->price}}</p>
+                                            </a>
+                                        </div>
+                                    
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Display all appleTablet -->
+                        <div id="appleTablet" name="appleTablet" class="appleTablet  ml-2">
+                            <div id="AllProductsDiv" class="col-md-12">
+                                <div class="row">
+                             @foreach($_SESSION['appleTablets'] as $appleTablet)
+
+                                       
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$appleTablet->id}}" value="{{$appleTablet->id}}" >
+                                            <a href="/singleProduct/{{$appleTablet->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
+                                            <br>
+                                            <p class="menu-product-name">{{$appleTablet->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$appleTablet->price}}</p>
+                                            </a>
+                                        </div>
+                                    
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Display all androidTablet -->
+                        <div id="androidTablet" name="androidTablet" class="androidTablet   ml-2">
+                            <div id="AllProductsDiv" class="col-md-12">
+                                <div class="row">
+                             @foreach($_SESSION['androidTablets'] as $androidTablet)
+                                       
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$androidTablet->id}}" value="{{$androidTablet->id}}" >
+                                            <a href="/singleProduct/{{$androidTablet->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
+                                            <br>
+                                            <p class="menu-product-name">{{$androidTablet->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$androidTablet->price}}</p>
+                                            </a>
+                                        </div>
+                                    
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                     
+
+
+
+                        
                             
                                 <!-- foreach statement that publishes the page with database criteria and placeholder -->
                             @php
                                 $count = 0;
                             @endphp
-                            <div id="AllProductsDiv" class="col-md-12">
+                            <div id="allProducts" name="allProducts" class="col-md-12">
                                 <div class="row">
                                 <!-- script to check if anything is checked in categories -->
 
@@ -124,13 +305,15 @@
                                         @endphp
                                         
                                         <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$_SESSION['allProducts'][$j]->id}}" value="{{$_SESSION['allProducts'][$j]->id}}" >
-                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             <a href="/singleProduct/{{$id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
                                             <br>
                                             <p class="menu-product-name">{{$_SESSION["allProducts"][$j]->name}}</p>
                                             <br>
                                             <br>
                                             <p class="menu-product-price">£{{$_SESSION["allProducts"][$j]->price}}</p>
+                                            </a>
                                         </div>
                                     
                                     @endfor
@@ -142,13 +325,15 @@
                                         @endphp
                                         
                                         <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$_SESSION['allProducts'][$j]->id}}" value="{{$_SESSION['allProducts'][$j]->id}}" >
-                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
                                             <a href="/singleProduct/{{$id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                            
                                             <br>
                                             <p class="menu-product-name">{{$_SESSION["allProducts"][$j]->name}}</p>
                                             <br>
                                             <br>
                                             <p class="menu-product-price">£{{$_SESSION["allProducts"][$j]->price}}</p>
+                                            </a>
                                         </div>
                                     @endfor
                                 @endif
@@ -159,9 +344,9 @@
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                      @csrf
-                                    @for($i=1;$i<=$pagesNeeded;$i++)
+                                    <!-- @for($i=1;$i<=$pagesNeeded;$i++)
                                         <button id="page-{{$i}}" value="{{$i}}"class="PageButton">{{$i}}</button>
-                                    @endfor
+                                    @endfor -->
                                 </div>
                             </div>
                         </div>
@@ -170,30 +355,129 @@
                 <!-- function to handle if a product has been selected -->
                 <!-- script to recognise if a checkbox has been checked -->
                 <script type="text/javascript">
+                    $( document ).ready(function() {
+                        $("#phones").hide();
+                        $("#applePhones").hide();
+                        $("#huaweiPhones").hide();
+                        $("#samsungPhones").hide();
+                        $("#tablets").hide();
+                        $("#appleTablet").hide();
+                        $("#androidTablet").hide();
+                        $(".phoneCats").hide();
+                        $(".tabCats").hide();
 
+                        $('input[type="checkbox"]').on('change', function() {
+                           $('input[type="checkbox"]').not(this).prop('checked', false);
+                        });
                     
+                    });
+                    function seeSubsPhone(){
+                        $(".phoneCats").toggle();
+                        $("#phones").toggle();
+                        $("#allProducts").hide();
+                        
+                    }
+                    function seeSubsTablet(){
+                        $(".tabCats").toggle();
+                        $("#tablets").toggle();
+                        $("#allProducts").hide();
+                    }
 
-                   function validate(){
-                        if (document.getElementById('flexCheckDefault-1').checked) {
-                            alert("phones");
-                        }else if(document.getElementById('flexCheckDefault-2').checked) {
-                            alert("apple");
-                        }else if(document.getElementById('flexCheckDefault-3').checked) {
-                            alert("huawei");
-                        }else if(document.getElementById('flexCheckDefault-4').checked) {
-                            alert("samsung");
-                        }else if(document.getElementById('flexCheckDefault-5').checked) {
-                            alert("tablets");
-                        }else if(document.getElementById('flexCheckDefault-6').checked) {
-                            alert("appleTablet");
-                        }else if(document.getElementById('flexCheckDefault-7').checked) {
-                            alert("androidTablet");
+                    function validate(){
+                       
+                        if(document.getElementById('flexCheckDefault-2').checked) {
+                            $("#applePhones").show();
+                            $("#samsungPhones").hide();
+                            $("#huaweiPhones").hide();
+                            $("#phones").hide();
+                            $("#tablets").hide();
+                            $("#appleTablets").hide();
+                            $("#androidTablets").hide();
+                            $("#allProducts").hide();
+
                         }
-                        else
-                        {
-                            alert("all");
+                         if(document.getElementById('flexCheckDefault-3').checked) {
+                            $("#applePhones").hide();
+                            $("#samsungPhones").hide();
+                            $("#huaweiPhones").show();
+                            $("#phones").hide();
+                            $("#tablets").hide();
+                            $("#appleTablets").hide();
+                            $("#androidTablets").hide();
+                            $("#allProducts").hide();
+                        }
+                        if(document.getElementById('flexCheckDefault-4').checked) {
+                            $("#applePhones").hide();
+                            $("#samsungPhones").show();
+                            $("#huaweiPhones").hide();
+                            $("#phones").hide();
+                            $("#tablets").hide();
+                            $("#appleTablets").hide();
+                            $("#androidTablets").hide();
+                            $("#allProducts").hide();
+                        }
+                        if(document.getElementById('flexCheckDefault-6').checked) {
+                            $("#applePhones").hide();
+                            $("#samsungPhones").hide();
+                            $("#huaweiPhones").hide();
+                            $("#phones").hide();
+                            $("#tablets").hide();
+                            $("#appleTablets").show();
+                            $("#androidTablets").hide();
+                            $("#allProducts").hide();
+                        }
+    
+                        if(document.getElementById('flexCheckDefault-7').checked) {
+                            $("#applePhones").hide();
+                            $("#samsungPhones").hide();
+                            $("#huaweiPhones").hide();
+                            $("#phones").hide();
+                            $("#tablets").hide();
+                            $("#appleTablets").hide();
+                            $("#androidTablets").show();
+                            $("#allProducts").hide();
                         }
                     }
+                    //create a delay for the keyup function
+                    function delay(callback, ms) {
+                      var timer = 0;
+                      return function() {
+                        var context = this, args = arguments;
+                        clearTimeout(timer);
+                        timer = setTimeout(function () {
+                          callback.apply(context, args);
+                        }, ms || 0);
+                      };
+                    }
+
+                    // ajax Check on search
+                     $(document).ready(function(){
+                       $("#search").keyup(delay(function(){
+                            var search = $(this).val().trim();
+                            console.log(search);
+                                if(search != ''){
+                                    $.ajax({
+                                        url: "{{ url('/AjaxSearch') }}",
+                                        type: 'POST',
+                                        data: {search: search},
+                                        headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        },
+                                        success: function(response){
+                                            ajaxCallBack(response);
+                                         }
+                                    });
+                                }
+                            }, 500));
+                        });
+                     //converter for string to html
+                     var stringToHTML = function (str) {
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(str, 'text/html');
+                        return doc.body;
+                    };
+                       
+                     
                 </script>
                
     </body>

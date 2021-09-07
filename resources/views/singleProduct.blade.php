@@ -79,7 +79,7 @@
                             <p class="menu-product-price">Brand is: {{$brandNeeded}}</p>
                             <br>
                             <br>
-                            <p class="menu-product-price">{{$productNeeded->price}}</p>
+                            <p class="menu-product-price">£{{$productNeeded->price}}</p>
                         </div>
                     </div>
                 </div>

@@ -16,4 +16,5 @@
     // Route::post('/singleProduct', 'singleProductController@show')->name('singleProduct');
     Route::get('/singleProduct/{id}', 'singleProductController@show');
     Route::post('/AjaxPageUpdate', 'ProductsController@AjaxPageUpdate');
+    Route::post('/AjaxSearch', 'ProductsController@AjaxSearch');
     
