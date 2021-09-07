@@ -9,7 +9,8 @@ use App\categories;
 class ProductsController extends Controller
 {
     protected function show(Request $request){
-	 	
+    		session_start();
+    		$_SESSION["pageClicked"] = 3;
 			$allProducts = products::getProducts();
 			$allCategories = categories::getCategories();
 			$phones = array();
@@ -43,7 +44,27 @@ class ProductsController extends Controller
 					$androidPhones[] = $product;
 				}
 			}
-	        return view('welcome', compact('allProducts', 'allCategories', 'phones', 'applePhones', 'huaweiPhones', 'samsungPhones', 'tablets', 'appleTablets', 'androidPhones'));	
+			$_SESSION["allProducts"] = $allProducts;
+			$_SESSION["allCategories"] = $allCategories;
+			$_SESSION["phones"] = $phones;
+			$_SESSION["applePhones"] = $applePhones;
+			$_SESSION["huaweiPhones"] = $huaweiPhones;
+			$_SESSION["samsungPhones"] = $samsungPhones;
+			$_SESSION["tablets"] = $tablets;
+			$_SESSION["appleTablets"] = $appleTablets;
+			$_SESSION["androidPhones"] = $androidPhones;
+	        return view('welcome');	
 	        
     }
+
+    public function AjaxPageUpdate(Request $request)
+		{
+
+		   	$title = $_POST['title'];
+		   	$_SESSION["pageClicked"] = $title;
+		   	dd($_SESSION["pageClicked"]);
+
+		   return view('welcome');	
+	
+	}
 }
