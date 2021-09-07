@@ -19,29 +19,29 @@ class ProductsController extends Controller
 			$samsungPhones = array();
 			$tablets = array();
 			$appleTablets = array();
-			$androidPhones = array();
+			$androidTablets = array();
 			foreach ($allProducts as $product){
 				if($product->category_id == 1 || $product->category_id == 2 ||$product->category_id == 3 || $product->category_id == 4 ){
 
 					$phones[] = $product;
 				}
-				elseif($product->category_id == 2 ){
+				if($product->category_id == 2 ){
 					$applePhones[] = $product;
 				}
-				elseif($product->category_id == 3 ){
+				if($product->category_id == 3 ){
 					$huaweiPhones[] = $product;
 				}
-				elseif($product->category_id == 4 ){
-					$huaweiPhones[] = $product;
+				if($product->category_id == 4 ){
+					$samsungPhones[] = $product;
 				}
-				elseif($product->category_id == 5 || $product->category_id == 6 ||$product->category_id == 7){
+				if($product->category_id == 5 || $product->category_id == 6 ||$product->category_id == 7){
 					$tablets[] = $product;
 				}
-				elseif($product->category_id == 6 ){
+				if($product->category_id == 6 ){
 					$appleTablets[] = $product;
 				}
-				elseif($product->category_id == 7 ){
-					$androidPhones[] = $product;
+				if($product->category_id == 7 ){
+					$androidTablets[] = $product;
 				}
 			}
 			$_SESSION["allProducts"] = $allProducts;
@@ -52,7 +52,8 @@ class ProductsController extends Controller
 			$_SESSION["samsungPhones"] = $samsungPhones;
 			$_SESSION["tablets"] = $tablets;
 			$_SESSION["appleTablets"] = $appleTablets;
-			$_SESSION["androidPhones"] = $androidPhones;
+			$_SESSION["androidTablets"] = $androidTablets;
+
 	        return view('welcome');	
 	        
     }
