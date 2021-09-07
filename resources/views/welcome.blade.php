@@ -103,23 +103,42 @@
                                 <div class="row">
                                 <!-- script to check if anything is checked in categories -->
 
-                                @foreach($allProducts as $product)
+                                <!-- I need to create a "page clicked" variable that allows me to use that as the starting point of a loop e.g page 2 starts at 6.  -->
                                 @php
-                                    $count++;
-                                @endphp
-                                    <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$product->id}}">
-                                        <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder">
-                                        <br>
-                                        <p class="menu-product-name">{{$product->name}}</p>
-                                        <br>
-                                        <br>
-                                        <p class="menu-product-price">£{{$product->price}}</p>
-                                    </div>
-                                @endforeach
-                                </div>
-                                @php
+                                    $count = count($allProducts);
                                     $pagesNeeded = $count / 5;
+                                    $pageClicked = 3;
+                                    $startingProduct = ($pageClicked - 1) *5;
+                                    $pageProducts = $pageClicked * 5;
                                 @endphp
+                                @if($pageClicked == 1)
+                                    @for($j = 0; $j <$pageProducts; $j++)
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$allProducts[$j]->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder">
+                                            <br>
+                                            <p class="menu-product-name">{{$allProducts[$j]->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$allProducts[$j]->price}}</p>
+                                        </div>
+                                    
+                                    @endfor
+                                @else
+                                    @for($j = $startingProduct; $j <$pageProducts; $j++)
+                                    
+                                        <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$allProducts[$j]->id}}">
+                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder">
+                                            <br>
+                                            <p class="menu-product-name">{{$allProducts[$j]->name}}</p>
+                                            <br>
+                                            <br>
+                                            <p class="menu-product-price">£{{$allProducts[$j]->price}}</p>
+                                        </div>
+                                    
+                                    @endfor
+                                @endif
+                                </div>
+                                
                             </div>
 
                             <div class="row">
@@ -141,15 +160,15 @@
                             alert("phones");
                         }else if(document.getElementById('flexCheckDefault-2').checked) {
                             alert("apple");
-                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                        }else if(document.getElementById('flexCheckDefault-3').checked) {
                             alert("huawei");
-                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                        }else if(document.getElementById('flexCheckDefault-4').checked) {
                             alert("samsung");
-                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                        }else if(document.getElementById('flexCheckDefault-5').checked) {
                             alert("tablets");
-                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                        }else if(document.getElementById('flexCheckDefault-6').checked) {
                             alert("appleTablet");
-                        }else if(document.getElementById('flexCheckDefault-2').checked) {
+                        }else if(document.getElementById('flexCheckDefault-7').checked) {
                             alert("androidTablet");
                         }
                         else
