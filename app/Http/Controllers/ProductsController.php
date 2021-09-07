@@ -53,20 +53,19 @@ class ProductsController extends Controller
 			$_SESSION["tablets"] = $tablets;
 			$_SESSION["appleTablets"] = $appleTablets;
 			$_SESSION["androidTablets"] = $androidTablets;
-			
+
+			$count = count($_SESSION["allProducts"]);
+            $pagesNeeded = $count / 5;
+            $pageClicked = $_SESSION["pageClicked"];
+            $startingProduct = ($pageClicked - 1) *5;
+            $pageProducts = $pageClicked * 5;
+
+      
 	        return view('welcome');	
-	        
+
     }
 
-    public function AjaxPageUpdate(Request $request)
-		{
 
-		   	$title = $_POST['title'];
-		   	$_SESSION["pageClicked"] = $title;
-		   	dd($_SESSION["pageClicked"]);
-
-		   return view('welcome');	
-	}
 
 	public function AjaxSearch(Request $request)
 		{
@@ -84,6 +83,31 @@ class ProductsController extends Controller
 		      	$smallString = $arr[0];
 		      	$response = "<a href='/singleProduct/".$smallString->id."' style='color: grey; id='".$smallString->id."'>".$smallString->name."</a>";
 		   echo $response;
+		}
+
+		public function FilterHandler(Request $request)
+		{
+			$selectedFilter = $request->input('filter');
+
+			if($selectedFilter == "alpha"){
+				$_SESSION["allProducts"] = ksort($_SESSION["allProducts"]);
+				// $_SESSION["phones"];
+				// $_SESSION["applePhones"];
+				// $_SESSION["huaweiPhones"];
+				// $_SESSION["samsungPhones"];
+				// $_SESSION["tablets"];
+				// $_SESSION["appleTablets"];
+				// $_SESSION["androidTablets"];
+				dd($_SESSION["allProducts"]);
+			}
+			elseif($selectedFilter == "CostL"){
+				
+			}
+			elseif($selectedFilter == "CostH"){
+				
+			}
+			
+			dd('got here');
 		}
 
 	

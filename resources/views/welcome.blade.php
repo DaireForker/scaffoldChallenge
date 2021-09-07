@@ -119,6 +119,17 @@
                         <!-- On the right hand side of the page the user will be able to filter the view of the products as well as view the products. The products will be displayed according to the category/price/name etc using a foreach that displays a session variable thats updated according to ajax criteria. At the bottom of the right hand column there will be pagination buttons. -->
                         <div class="col-md-9  menu-box-right ml-2" >
                         <u><h3 class="mt-5 ">All Products</h3></u>
+                        <form action="/FilterHandler" method="POST">
+                            @csrf
+                          <label for="filter">Sort?:</label>
+                          <select name="filter" id="filter">
+                            <option value="CostL">Cost:(Low - High)</option>
+                            <option value="CostH">Cost:(High - Low)</option>
+                            <option value="alpha">A-Z</option>
+                          </select>
+                          <br><br>
+                          <input type="submit" value="Update">
+                        </form>
 
                         <!-- Display all phones -->
                         <div id="phones" name="phones" class="phones ml-2">

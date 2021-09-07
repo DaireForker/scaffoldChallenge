@@ -17,4 +17,7 @@
     Route::get('/singleProduct/{id}', 'singleProductController@show');
     Route::post('/AjaxPageUpdate', 'ProductsController@AjaxPageUpdate');
     Route::post('/AjaxSearch', 'ProductsController@AjaxSearch');
+    Route::post('FilterHandler', 'ProductsController@FilterHandler')->name('FilterHandler');
+
+    
     
