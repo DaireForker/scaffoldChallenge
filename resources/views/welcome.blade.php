@@ -210,7 +210,7 @@
                         <div id="tablets" name="tablets" class="tablets  ml-2">
                             <div id="AllProductsDiv" class="col-md-12">
                                 <div class="row">
-                             @foreach($_SESSION['tablets'] as $tablet)
+                                @foreach($_SESSION['tablets'] as $tablet)
                                        
                                         <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$tablet->id}}" value="{{$tablet->id}}" >
                                             <a href="/singleProduct/{{$tablet->id}}">
@@ -224,26 +224,24 @@
                                             </a>
                                         </div>
                                     
-                                    @endforeach
+                                @endforeach
                                 </div>
                             </div>
                         </div>
-                         <!-- Display all appleTablet -->
-                        <div id="appleTablet" name="appleTablet" class="appleTablet  ml-2">
+                         <!-- Display all appleTablets -->
+                        <div id="appleTablets" name="appleTablets" class="appleTablets  ml-2">
                             <div id="AllProductsDiv" class="col-md-12">
                                 <div class="row">
                              @foreach($_SESSION['appleTablets'] as $appleTablet)
 
-                                       
                                         <div class="col-md-3 ml-5 mt-4 mb-2 menu-product-card " id="card-{{$appleTablet->id}}" value="{{$appleTablet->id}}" >
                                             <a href="/singleProduct/{{$appleTablet->id}}">
-                                            <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
-                                            
-                                            <br>
-                                            <p class="menu-product-name">{{$appleTablet->name}}</p>
-                                            <br>
-                                            <br>
-                                            <p class="menu-product-price">£{{$appleTablet->price}}</p>
+                                                <img src="{{ asset("img/dummy_150x150_ffffff_FFA400_placeholder.png") }}"  class="menu-product-image mt-3" alt="placeholder" >
+                                                <br>
+                                                <p class="menu-product-name">{{$appleTablet->name}}</p>
+                                                <br>
+                                                <br>
+                                                <p class="menu-product-price">£{{$appleTablet->price}}</p>
                                             </a>
                                         </div>
                                     
@@ -251,8 +249,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Display all androidTablet -->
-                        <div id="androidTablet" name="androidTablet" class="androidTablet   ml-2">
+                        <!-- Display all androidTablets -->
+                        <div id="androidTablets" name="androidTablets" class="androidTablets   ml-2">
                             <div id="AllProductsDiv" class="col-md-12">
                                 <div class="row">
                              @foreach($_SESSION['androidTablets'] as $androidTablet)
@@ -273,12 +271,7 @@
                                 </div>
                             </div>
                         </div>
-                     
-
-
-
-                        
-                            
+                      
                                 <!-- foreach statement that publishes the page with database criteria and placeholder -->
                             @php
                                 $count = 0;
