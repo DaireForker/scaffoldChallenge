@@ -15,10 +15,9 @@
                     <div class="form-check menu-categories">
                          
                     </div>
-                    <!-- foreach statement that displays all of the categories -->
                     
                 </div>
-                
+                <!-- div that displays all of the seleted products information -->
                 <div class="col-md-9  menu-box-right ml-2">
                     <u><h3 class="mt-5 fade-in">Let me introduce you to the {{$productNeeded->name}}..</h3></u>
                     <div class="row">

@@ -4,7 +4,7 @@
             
                 <div class="container mt-2">
                     <div class="row ">
-                        <!-- The left column will contain radio buttons that send ajax posts to update the information that should be displayed. This is just mock frontend-->
+                        <!-- The left column will contain checkboxes that act as radio buttons per category.-->
                         <div class="col-md-3 col-sm-12 col-xs-12 menu-box-left">
                             <br>
                             <div class="form-check ">
@@ -47,10 +47,9 @@
 
                                 @endforeach
                             </div>
-                            <!-- foreach statement that displays all of the categories -->
                             
                         </div>
-                        <!-- On the right hand side of the page the user will be able to filter the view of the products as well as view the products. The products will be displayed according to the category/price/name etc using a foreach that displays a session variable thats updated according to ajax criteria. At the bottom of the right hand column there will be pagination buttons. -->
+                        <!-- The user is able to scroll through all of the selected products be it in the category view or the sub category view. They are able to then click on the wanted product and view it individually -->
                         <div class="col-md-9 col-sm-12  menu-box-right " >
                         <u><h3 class="mt-5 text-center">Products</h3></u>
 
@@ -212,10 +211,9 @@
                             @endphp
                             <div id="allProducts" name="allProducts" class="col-md-12">
                                 <div class="row">
-                                <!-- script to check if anything is checked in categories -->
 
                                 <!-- I counted the products to find out how many buttons i needed and then used that to then state where the starting point of the forloop would be.
-                                Now i need to create a script that passes the buttons name - this could have to be an ajax post.  -->
+                                Now i need to create a script that passes the buttons name - this could have to be an ajax post.  Having issues with pagination because I have overvalued how dynamic the category/sub cat view is. Tried to create an ajax post rather than typical routing and now I have boxed mysekf in on pagination.-->
                                 @php
                                     $count = count($_SESSION["allProducts"]);
                                     $pagesNeeded = $count / 5;
@@ -271,6 +269,8 @@
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                      @csrf
+
+                                     <!-- Pagination creator -->
                                     <!-- @for($i=1;$i<=$pagesNeeded;$i++)
                                         <button id="page-{{$i}}" value="{{$i}}"class="PageButton">{{$i}}</button>
                                     @endfor -->
@@ -279,8 +279,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- function to handle if a product has been selected -->
-                <!-- script to recognise if a checkbox has been checked -->
+
+                <!-- script to ENSURE the unwanted divs are hid initially -->
                 <script type="text/javascript">
                     $( document ).ready(function() {
                         $("#phones").hide();

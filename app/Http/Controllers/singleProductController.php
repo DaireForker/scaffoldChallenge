@@ -14,6 +14,7 @@ class singleProductController extends Controller
     		$productNeeded;
     		$allProducts = products::getProducts();
     		$allCategories = categories::getCategories();
+    		// check if the selected product Id is in the products array and then get that products object.
            	foreach($allProducts as $products){
            		if($id == $products->id){
 					$productNeeded = $products;
@@ -21,7 +22,7 @@ class singleProductController extends Controller
            	}
 
            	$brandNeeded;
-           
+           	// get the information for that products category.
            	foreach($allCategories as $category)
            	{
            		if($category->id == $productNeeded->category_id){

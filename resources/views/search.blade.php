@@ -10,7 +10,7 @@
     };
   }
 
-  // ajax Check on search
+  // ajax Check on search input
    $(document).ready(function(){
      $("#search").keyup(delay(function(){
           var search = $(this).val().trim();

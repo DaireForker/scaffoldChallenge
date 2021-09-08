@@ -20,6 +20,7 @@ class ProductsController extends Controller
 			$tablets = array();
 			$appleTablets = array();
 			$androidTablets = array();
+			// From the products gathered, create initial arrays so that Im not hitting the db everytime I want to get the products.
 			foreach ($allProducts as $product){
 				if($product->category_id == 1 || $product->category_id == 2 ||$product->category_id == 3 || $product->category_id == 4 ){
 
@@ -44,6 +45,7 @@ class ProductsController extends Controller
 					$androidTablets[] = $product;
 				}
 			}
+			// Turn those arrays into session variables 
 			$_SESSION["allProducts"] = $allProducts;
 			$_SESSION["allCategories"] = $allCategories;
 			$_SESSION["phones"] = $phones;
@@ -57,16 +59,6 @@ class ProductsController extends Controller
 	        return view('welcome');	
 	        
     }
-
-    public function AjaxPageUpdate(Request $request)
-		{
-
-		   	$title = $_POST['title'];
-		   	$_SESSION["pageClicked"] = $title;
-		   	dd($_SESSION["pageClicked"]);
-
-		   return view('welcome');	
-	}
 
 	public function AjaxSearch(Request $request)
 		{
