@@ -1,13 +1,24 @@
+
+.title{
+	font-size: 35px;
+	border-right: solid grey;
+}
+.menu-top-banner{
+	width: 100%;
+	background-color: #566173;
+}
 .menu-top-seperator{
 	background-color: #696969;
 	width: 100%;
 	height:15px;
+	box-shadow: 10px 10px 5px grey;
 }
 .menu-searchBar{
+	padding-left:20px;
 	border: solid grey;
 	border-radius: 12px;
 	margin-left: -50px;
-	font-size: 15px;
+	font-size: 18px;
 	height: 40px;
 	width: 60%;
 }
@@ -26,12 +37,15 @@
 .menu-box-right{
 	border: solid grey;
 	border-radius: 10px;
-	margain-left: 30px
+	margain-left: 30px;
+	box-shadow: 10px 10px 5px grey;
 }
 .menu-product-card{
 	border: solid grey;
 	border-radius: 10px;
 	text-align: center;
+	margain-left: 25%;
+	box-shadow: 10px 10px 5px grey;
 }
 .menu-product-card:hover{
     opacity:70%;
@@ -92,10 +106,75 @@
 	height: 2px;
 }
 .cat-Buttons{
-	
+	border-right: solid grey;
+	padding-top: 25px;
 }
 .cat-Buttons:hover{
-	opacity:50%;
+	opacity:90%;
 	cursor: pointer;
+	background-color: #5e5d57;
 }
+@media only screen and (max-width: 1200px) and (min-width: 771px){
+    .menu-product-image{
+		border: solid grey;
+		border-radius: 0px;
+		text-align: center;
+		width: 85%;
+	}
+}
+
+@media only screen and (max-width: 770px) and (min-width: 400px){
+    .menu-box-left{
+		border: solid grey;
+		border-radius: 10px;
+		margin-left: 0px;
+		background-color: #a2a3a2;
+	}
+	.menu-box-right{
+	border: solid grey;
+	border-radius: 10px;
+	margain-left: 0px
+	}
+	.menu-product-card{
+		border: solid grey;
+		border-radius: 10px;
+		text-align: center;
+	}
+}
+@media only screen and (max-width: 400px){
+    .menu-box-left{
+		border: solid grey;
+		border-radius: 10px;
+		margin-left: 0px;
+		background-color: #a2a3a2;
+	}
+	.menu-box-right{
+	border: solid grey;
+	border-radius: 10px;
+	margain-left: 0px
+	}
+	.menu-product-card{
+		border: solid grey;
+		border-radius: 10px;
+		text-align: center;
+	}
+}
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 
